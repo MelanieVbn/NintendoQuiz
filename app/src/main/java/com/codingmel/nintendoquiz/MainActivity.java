@@ -2,9 +2,12 @@ package com.codingmel.nintendoquiz;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.q42.android.scrollingimageview.ScrollingImageView;
@@ -20,9 +23,14 @@ public class MainActivity extends AppCompatActivity {
         ScrollingImageView scrollingBackground = findViewById(R.id.bgImageView);
         scrollingBackground.stop();
         scrollingBackground.start();
-        /*ImageView backgroundImage = findViewById(R.id.bgImageView);
-        backgroundImage.setImageResource(R.drawable.nintendo_characters);
-        Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.defilement_loop);
-        backgroundImage.startAnimation(animation);*/
+
+        Button aboutButton = findViewById(R.id.aboutButton);
+        aboutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,AboutActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
