@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import java.util.List;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -16,7 +19,9 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         Intent srcIntent = getIntent();
-        Question question = srcIntent.getParcelableExtra("questions");
+        List<Question> questions = srcIntent.getParcelableArrayListExtra("questions");
+        Question[] questionsArray = new Question[questions.size()];
+        Question question = questions.toArray(questionsArray)[2];
 
         ImageView questionImg = findViewById(R.id.questionImage);
         questionImg.setImageResource(question.getImgId());

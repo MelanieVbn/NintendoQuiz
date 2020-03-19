@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.q42.android.scrollingimageview.ScrollingImageView;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -57,12 +59,12 @@ public class MainActivity extends AppCompatActivity {
                             case 0:
                                 intent.putExtra("questions",getEasyQuestions());
                                 break;
-                            case 1:
+                            /*case 1:
                                 intent.putExtra("questions",getEasyQuestions());
                                 break;
                             case 2:
                                 intent.putExtra("questions",getEasyQuestions());
-                                break;
+                                break;*/
                         }
                         mp.stop();
                         startActivity(intent);
@@ -84,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private Question getEasyQuestions() {
+    private ArrayList<Question> getEasyQuestions() {
         Question questions[] = new Question[]{
                 new Question("Quel est ce personnage ?", "FACILE", R.drawable.red_mushroom, 0, Arrays.asList("Luigi", "Wario", "Waluigi"), "Waluigi"),
                 new Question("De quel jeu ce personnage est-il l'antagoniste ?", "FACILE", R.drawable.red_mushroom, 0, Arrays.asList("The Legend of Zelda", "Pokemon", "Super Mario Bros"), "The Legend of Zelda"),
@@ -97,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 new Question("Quel est le nom de ce personnage ?", "FACILE", R.drawable.red_mushroom, 0, Arrays.asList("Professeur Mario", "Mario le Toubib", "Dr.Mario"), "Dr.Mario"),
                 new Question("Quelle console avait cette intoduction ?", "FACILE", R.drawable.red_mushroom, 0, Arrays.asList("Game Cube", "Wii", "Nintendo 64"), "Game Cube")
         };
-        return questions[1];
+
+        return new ArrayList<Question>(Arrays.asList(questions));
     }
 }
