@@ -5,23 +5,31 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 public class GameActivity extends AppCompatActivity {
-
+    private boolean isItRightAnswer;
+    private int questionIndex = 0;
+    private Intent srcIntent;
+    private List<Question> questions;
+    private Question[] questionsArray;
+    private Question question;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        Intent srcIntent = getIntent();
-        List<Question> questions = srcIntent.getParcelableArrayListExtra("questions");
-        Question[] questionsArray = new Question[questions.size()];
-        Question question = questions.toArray(questionsArray)[2];
+        srcIntent = getIntent();
+        questions = srcIntent.getParcelableArrayListExtra("questions");
+        questionsArray = new Question[questions.size()];
+        question = questions.toArray(questionsArray)[questionIndex];
 
         ImageView questionImg = findViewById(R.id.questionImage);
         questionImg.setImageResource(question.getImgId());
@@ -29,12 +37,78 @@ public class GameActivity extends AppCompatActivity {
         TextView questionText = findViewById(R.id.questionTextView);
         questionText.setText(question.getQuestion());
 
+        final Button nextButton = findViewById(R.id.nextButton);
+
         RadioGroup radioGroup = findViewById(R.id.answersRadioGroup);
         for (String answer: question.getAnswers()){
-            RadioButton radioButton = new RadioButton(this);
+            final RadioButton radioButton = new RadioButton(this);
             radioButton.setText(answer);
+            radioButton.setOnClickListener(new RadioButton.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(radioButton.getText().equals(question.getRightAnswers())){
+                        Toast.makeText(GameActivity.this,"C'est la bonne réponse !",Toast.LENGTH_SHORT).show();
+                        isItRightAnswer = true;
+                    }else{
+                        Toast.makeText(GameActivity.this,"Mauvaise réponse :(",Toast.LENGTH_SHORT).show();
+                        isItRightAnswer = false;
+                    }
+                    if(questionIndex < questionsArray.length-1){
+                        nextButton.setText("Question Suivante");
+                    }else if (questionIndex == questionsArray.length -1){
+                        nextButton.setText("Voir les réuslats");
+                    }
+                }
+            });
             radioGroup.addView(radioButton);
         }
+
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isItRightAnswer && questionIndex < questionsArray.length-1){
+                    questionIndex++;
+
+                    question = questions.toArray(questionsArray)[questionIndex];
+
+                    ImageView questionImg = findViewById(R.id.questionImage);
+                    questionImg.setImageResource(question.getImgId());
+
+                    TextView questionText = findViewById(R.id.questionTextView);
+                    questionText.setText(question.getQuestion());
+
+                    RadioGroup radioGroup = findViewById(R.id.answersRadioGroup);
+                    radioGroup.removeAllViews();
+                    for (String answer: question.getAnswers()){
+                        final RadioButton radioButton = new RadioButton(GameActivity.this);
+                        radioButton.setText(answer);
+                        radioButton.setOnClickListener(new RadioButton.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if(radioButton.getText().equals(question.getRightAnswers())){
+                                    Toast.makeText(GameActivity.this,"C'est la bonne réponse !",Toast.LENGTH_SHORT).show();
+                                    isItRightAnswer = true;
+                                }else{
+                                    Toast.makeText(GameActivity.this,"Mauvaise réponse :(",Toast.LENGTH_SHORT).show();
+                                    isItRightAnswer = false;
+                                }
+                                if(questionIndex < questionsArray.length-1){
+                                    nextButton.setText("Question Suivante");
+                                }else if (questionIndex == questionsArray.length -1){
+                                    nextButton.setText("Voir les réuslats");
+                                }
+                            }
+                        });
+                        radioGroup.addView(radioButton);
+                    }
+                }else{
+                    Intent intent = new Intent(GameActivity.this, QuestionListActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
 
 
         //Early Return
