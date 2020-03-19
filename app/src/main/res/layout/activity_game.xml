@@ -7,7 +7,7 @@
     tools:context=".GameActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/questionImage"
         android:layout_width="199dp"
         android:layout_height="178dp"
         android:layout_marginTop="8dp"
@@ -24,36 +24,17 @@
         android:text="Question"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/questionImage" />
 
     <RadioGroup
-        android:id="@+id/radiouGroup"
+        android:id="@+id/answersRadioGroup"
         android:layout_width="395dp"
         android:layout_height="145dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/questionTextView"
-        app:layout_constraintVertical_bias="0.208">
-
-        <RadioButton
-            android:id="@+id/answerOneRadioButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Reponse 1" />
-
-        <RadioButton
-            android:id="@+id/answerTwoRadioButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Reponse 2" />
-
-        <RadioButton
-            android:id="@+id/answerThreeRadioButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Reponse 3" />
-    </RadioGroup>
+        app:layout_constraintVertical_bias="0.208"/>
 
     <Button
         android:id="@+id/nextButton"
@@ -64,6 +45,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radiouGroup"
+        app:layout_constraintTop_toBottomOf="@+id/answersRadioGroup"
         app:layout_constraintVertical_bias="0.188" />
 </androidx.constraintlayout.widget.ConstraintLayout>
