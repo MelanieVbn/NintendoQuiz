@@ -20,7 +20,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class GameActivity extends AppCompatActivity {
-    private boolean isItRightAnswer;
     private int questionIndex = 0;
     private Intent srcIntent;
     private List<Question> questions;
@@ -28,6 +27,7 @@ public class GameActivity extends AppCompatActivity {
     private Question question;
     private Button nextButton;
     private RadioGroup radioGroup;
+    private int goodAnswers;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +36,8 @@ public class GameActivity extends AppCompatActivity {
         questions = srcIntent.getParcelableArrayListExtra("questions");
         Collections.shuffle(questions);
         questionsArray = new Question[questions.size()];
+
+        final String difficulty = srcIntent.getStringExtra("difficulty");
 
         setQuestion(questionIndex);
         nextButton = findViewById(R.id.nextButton);
@@ -56,6 +58,9 @@ public class GameActivity extends AppCompatActivity {
                     setQuestion(questionIndex);
                 }else{
                     Intent intent = new Intent(GameActivity.this, ResultActivity.class);
+                    intent.putExtra("goodAnswerPercentage",((float)goodAnswers/(float)questions.size())*100);
+                    intent.putExtra("totalNumberOfQuestions",questions.size());
+                    intent.putExtra("difficulty",difficulty);
                     startActivity(intent);
                 }
             }
@@ -63,7 +68,6 @@ public class GameActivity extends AppCompatActivity {
     }
     public void setQuestion(int index){
         question = questions.toArray(questionsArray)[index];
-
         ImageView questionImg = findViewById(R.id.questionImage);
         questionImg.setVisibility(View.INVISIBLE);
 
@@ -127,13 +131,14 @@ public class GameActivity extends AppCompatActivity {
             radioButton.setOnClickListener(new RadioButton.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    radioGroup.setEnabled(false);
                     radioGroup.setVisibility(View.INVISIBLE);
                     if(radioButton.getText().equals(question.getRightAnswers())){
                         resultTitle.setText("VRAI !");
-                        isItRightAnswer = true;
+                        goodAnswers++;
+                        Log.i("Pourcentage", "goodAnswers: "+goodAnswers);
                     }else{
                         resultTitle.setText("FAUX ! :( ");
-                        isItRightAnswer = false;
                     }
                     answerResult.setText("La réponse était : " + question.getRightAnswers());
                     resultTitle.setVisibility(View.VISIBLE);

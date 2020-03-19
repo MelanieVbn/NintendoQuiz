@@ -58,13 +58,16 @@ public class MainActivity extends AppCompatActivity {
                         switch (which) {
                             case 0:
                                 intent.putExtra("questions",getEasyQuestions());
+                                intent.putExtra("difficulty","FACILE");
                                 break;
-                            /*case 1:
+                            case 1:
                                 intent.putExtra("questions",getEasyQuestions());
+                                intent.putExtra("difficulty","MOYEN");
                                 break;
                             case 2:
                                 intent.putExtra("questions",getEasyQuestions());
-                                break;*/
+                                intent.putExtra("difficulty","DIFFICILE");
+                                break;
                         }
                         mp.stop();
                         startActivity(intent);
