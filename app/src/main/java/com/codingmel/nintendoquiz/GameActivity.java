@@ -85,6 +85,7 @@ public class GameActivity extends AppCompatActivity {
         questionText.setText(question.getQuestion());
 
         radioGroup = findViewById(R.id.answersRadioGroup);
+        Collections.shuffle(question.getAnswers());
         for (String answer: question.getAnswers()){
             final RadioButton radioButton = new RadioButton(this);
             radioButton.setText(answer);
