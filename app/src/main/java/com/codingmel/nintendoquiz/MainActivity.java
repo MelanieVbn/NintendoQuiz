@@ -19,6 +19,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    ArrayList<Question> questions;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,23 +51,23 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("Choisir un niveau");
-                final String[] difficultyLabels = {"Facile","Moyen","Dur"};
+                final String[] difficultyLabels = {"Facile","Moyen","Difficile"};
                 builder.setSingleChoiceItems(difficultyLabels, 0, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(MainActivity.this,GameActivity.class);
                         switch (which) {
                             case 0:
-                                intent.putExtra("questions",getEasyQuestions());
+                                intent.putExtra("questions",getQuestionsByDifficulty("FACILE"));
                                 intent.putExtra("difficulty","FACILE");
                                 break;
                             case 1:
-                                intent.putExtra("questions",getEasyQuestions());
+                                intent.putExtra("questions",getQuestionsByDifficulty("MOYEN"));
                                 intent.putExtra("difficulty","MOYEN");
                                 break;
                             case 2:
-                                intent.putExtra("questions",getEasyQuestions());
-                                intent.putExtra("difficulty","DIFFICILE");
+                                intent.putExtra("questions",getQuestionsByDifficulty("FACILE"));
+                                intent.putExtra("difficulty","MOYEN");
                                 break;
                         }
                         mp.stop();
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private ArrayList<Question> getEasyQuestions() {
+    private ArrayList<Question> getQuestions() {
         Question questions[] = new Question[]{
                 new Question("Quel est ce personnage ?", "FACILE", R.drawable.waluigi, 0, Arrays.asList("Luigi", "Wario", "Waluigi"), "Waluigi"),
                 new Question("De quel jeu ce personnage est-il l'antagoniste ?", "FACILE", R.drawable.ganon, 0, Arrays.asList("The Legend of Zelda", "Pokemon", "Super Mario Bros"), "The Legend of Zelda"),
@@ -100,9 +101,40 @@ public class MainActivity extends AppCompatActivity {
                 new Question("Dans quel lieu de Mario Bros retouve-t-on cette musique ?", "FACILE", R.drawable.red_mushroom, R.raw.mario_bros_wii_underground_theme, Arrays.asList("Les sous terrains", "Sous L'eau", "Dans les airs"), "Les sous terrains"),
                 new Question("De quel jeu vient cette musique ?", "FACILE", R.drawable.red_mushroom, R.raw.wii_sports_theme, Arrays.asList("Wii Sport", "Mario Galaxy", "Pokemon"), "Wii Sport"),
                 new Question("Quel est le nom de ce personnage ?", "FACILE", R.drawable.dr_mario, 0, Arrays.asList("Professeur Mario", "Mario le Toubib", "Dr.Mario"), "Dr.Mario"),
-                new Question("Quelle console avait cette intoduction ?", "FACILE", R.drawable.red_mushroom, R.raw.gamecube_intro, Arrays.asList("Game Cube", "Wii", "Nintendo 64"), "Game Cube")
+                new Question("Quelle console avait cette intoduction ?", "FACILE", R.drawable.red_mushroom, R.raw.gamecube_intro, Arrays.asList("Game Cube", "Wii", "Nintendo 64"), "Game Cube"),
+
+                new Question("Qui est cet homme ?", "MOYEN", R.drawable.red_mushroom, 0, Arrays.asList("Shigeru Miyamoto", "Saturo Iwata", "Hayao Miyazaki"), "Shigeru Miyamoto"),
+                new Question("Quel est le rôle de Marie dans Animal Crossing ?", "MOYEN", 0, R.raw.gamecube_intro, Arrays.asList("Elle est l'assistante du maire", "Elle est le maire", "Elle travaille dans une boutique"), "Elle est l'assistante du maire"),
+                new Question("De quelle firme venait Sonic avant d'apparaitre aux côté de Mario ?", "MOYEN", 0, R.raw.gamecube_intro, Arrays.asList("Sega", "Il a toujours été chez Nintendo", "DreamWorks"), "Sega"),
+                new Question("Quel est le nom de ce personnage ?", "MOYEN", 0, R.raw.gamecube_intro, Arrays.asList("Kirby", "Rondoudou", "Mrs.PacMan"), "Kirby"),
+                new Question("Quel est le nom du royaume d'où vient la princesse Zelda ?", "MOYEN", 0, R.raw.gamecube_intro, Arrays.asList("Hyrule", "Royaume Champignon", "Narnia"), "Hyrule"),
+                new Question("De quel jeu vient cette musique ?", "MOYEN", R.drawable.red_mushroom, R.raw.gamecube_intro, Arrays.asList("Animal Crossing", "Pokemon", "Zelda"), "Animal Crossing"),
+                new Question("De quel effet vient cette musique (Mario Bros) ?", "MOYEN", R.drawable.red_mushroom, R.raw.gamecube_intro, Arrays.asList("Quand une étoile est récupérée", "Quand un champignon est récupéré", "Quand un drapeau est passé"), "Quand une étoile est récupérée"),
+                new Question("A quel moment cette musique est-elle jouée (Zelda) ?", "MOYEN", R.drawable.red_mushroom, R.raw.gamecube_intro, Arrays.asList("Quand un coffre est ouvert", "Quand l'épée de légende est récupérée", "Quand un pouvoir est acquis"), "Quand un coffre est ouvert"),
+                new Question("De quel jeu Smash Bros vient cette musique ?", "MOYEN", R.drawable.red_mushroom, R.raw.gamecube_intro, Arrays.asList("Super Smash Bros Ultimate", "Super Smash Bros Melee", "Supe Smash Bros Brawl"), "Super Smash Bros Ultimate"),
+                new Question("Quelle console avait cette intoduction ?", "MOYEN", R.drawable.red_mushroom, R.raw.gamecube_intro, Arrays.asList("La GameBoy Color", "La DS", "La Wii"), "La GameBoy Color"),
+
+                new Question("Quel était le premier nom de Mario ?", "DIFFICILE", R.drawable.red_mushroom, 0, Arrays.asList("JumpMan", "Il s'est toujours appelé Mario", "Luigi"), "JumpMan"),
+                new Question("Quel est le nom de cette console ?", "DIFFICILE", R.drawable.red_mushroom, 0, Arrays.asList("Famicom", "MegaDrive", "Nintendo 64"), "Famicom"),
+                new Question("Qui se cache sous cette armure ?", "DIFFICILE", R.drawable.red_mushroom, 0, Arrays.asList("Samus", "Luna", "Megaman"), "Samus"),
+                new Question("Au départ, que vendant Nintendo ?", "DIFFICILE", R.drawable.red_mushroom, 0, Arrays.asList("Des jeux de cartes", "Des maquettes de voitures", "Des figurines"), "Des jeux de cartes"),
+                new Question("Qui a developpé les jeux Megaman ?", "DIFFICILE", R.drawable.red_mushroom, 0, Arrays.asList("Capcom", "Nintendo", "Sega"), "Game Cube"),
+                new Question("De quel niveau de Mario Kart 64 vient cette musique ?", "DIFFICILE", R.drawable.red_mushroom, R.raw.gamecube_intro, Arrays.asList("Route Arc-en-ciel", "Circuit Mario", "Parc Baby"), "Route Arc-en-ciel"),
+                new Question("", "DIFFICILE", R.drawable.red_mushroom, R.raw.gamecube_intro, Arrays.asList("Game Cube", "Wii", "Nintendo 64"), "Game Cube"),
+                new Question("De quel jeu vient cette musique ?", "DIFFICILE", R.drawable.red_mushroom, R.raw.gamecube_intro, Arrays.asList("Megaman", "Wii", "Nintendo 64"), "Game Cube"),
+                new Question("Qui a composé l'ost des jeux a licence Zelda ?", "DIFFICILE", R.drawable.red_mushroom, R.raw.gamecube_intro, Arrays.asList("Koji Kondo", "Asuka Ota", "Junichi Masuda"), "Koji Kondo"),
+                new Question("Quelle console avait cette intoduction ?", "DIFFICILE", R.drawable.red_mushroom, R.raw.gamecube_intro, Arrays.asList("La Nes", "La Nintendo 64", "Les premières versions de la GameBoy"), "La Nes")
         };
 
         return new ArrayList<Question>(Arrays.asList(questions));
+    }
+
+    private ArrayList<Question> getQuestionsByDifficulty(String difficulty){
+        ArrayList<Question> fetchedQuestions = new ArrayList<>();
+        for (Question question:getQuestions()) {
+            if(question.getDifficulty() == difficulty)
+            fetchedQuestions.add(question);
+        };
+        return fetchedQuestions;
     }
 }
