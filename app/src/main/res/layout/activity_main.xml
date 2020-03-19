@@ -16,7 +16,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         scrolling_image_view:speed="0.5dp"
-        scrolling_image_view:src="@drawable/nintendo_characters" />
+        scrolling_image_view:src="@drawable/allstar" />
+
+    <TextView
+        android:id="@+id/titleTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/early_gameboy"
+        android:gravity="center"
+        android:text="Nintendo Quiz !"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textColor="#E60012"
+        android:textSize="46sp"
+        android:textStyle="bold"
+        scrolling_image_view:layout_constraintBottom_toBottomOf="parent"
+        scrolling_image_view:layout_constraintEnd_toEndOf="parent"
+        scrolling_image_view:layout_constraintHorizontal_bias="0.0"
+        scrolling_image_view:layout_constraintStart_toStartOf="parent"
+        scrolling_image_view:layout_constraintTop_toTopOf="parent"
+        scrolling_image_view:layout_constraintVertical_bias="0.192" />
 
     <TextView
         android:id="@+id/titleTextView"
@@ -26,14 +44,15 @@
         android:gravity="center"
         android:text="Nintendo Quiz !"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        android:textColor="#FFFFFF"
-        android:textSize="40sp"
+        android:textColor="#FFFCFC"
+        android:textSize="45sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.27" />
+        app:layout_constraintVertical_bias="0.192" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/playButton"
@@ -50,10 +69,9 @@
         app:backgroundTint="#E60012"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/titleTextView"
-        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="@+id/titleTextView"
         app:layout_constraintTop_toBottomOf="@+id/titleTextView"
-        app:layout_constraintVertical_bias="0.311"
+        app:layout_constraintVertical_bias="0.305"
         tools:ignore="MissingConstraints" />
 
     <com.google.android.material.button.MaterialButton

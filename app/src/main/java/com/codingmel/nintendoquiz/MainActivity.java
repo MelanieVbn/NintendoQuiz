@@ -2,15 +2,10 @@ package com.codingmel.nintendoquiz;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.ImageView;
 
 import com.q42.android.scrollingimageview.ScrollingImageView;
 
@@ -46,7 +41,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mp.stop();
+                Intent intent = new Intent(MainActivity.this,AboutActivity.class);
+                startActivity(intent);
             }
         });
+
+        findViewById(R.id.allQuestionsButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, QuestionListActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }
