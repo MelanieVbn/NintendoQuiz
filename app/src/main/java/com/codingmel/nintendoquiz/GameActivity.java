@@ -3,8 +3,11 @@ package com.codingmel.nintendoquiz;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -52,7 +55,7 @@ public class GameActivity extends AppCompatActivity {
                     radioGroup.setVisibility(View.VISIBLE);
                     setQuestion(questionIndex);
                 }else{
-                    Intent intent = new Intent(GameActivity.this, QuestionListActivity.class);
+                    Intent intent = new Intent(GameActivity.this, ResultActivity.class);
                     startActivity(intent);
                 }
             }
@@ -64,7 +67,7 @@ public class GameActivity extends AppCompatActivity {
         ImageView questionImg = findViewById(R.id.questionImage);
         questionImg.setVisibility(View.INVISIBLE);
 
-        Button soundButton = findViewById(R.id.soundButton);
+        final Button soundButton = findViewById(R.id.soundButton);
         soundButton.setVisibility(View.INVISIBLE);
 
         final TextView resultTitle = findViewById(R.id.answerResultTitleTextView);
@@ -76,6 +79,38 @@ public class GameActivity extends AppCompatActivity {
 
         if(question.getSoundId() != 0){
             soundButton.setVisibility(View.VISIBLE);
+            soundButton.setOnClickListener(new View.OnClickListener() {
+                boolean isPlaying;
+                @Override
+                public void onClick(View v) {
+                    final MediaPlayer mp = MediaPlayer.create(GameActivity.this, question.getSoundId());
+                    if(mp.isPlaying()){
+                        mp.pause();
+                    } else {
+                        mp.start();
+                    }
+                    //mp.seekTo(50000);
+                    if(!isPlaying){
+                        Log.i("Music", "onClick: Playing ");
+                        mp.start();
+                        CountDownTimer cntr_aCounter = new CountDownTimer(10000, 1000) {
+                            public void onTick(long millisUntilFinished) {
+                                mp.start();
+                                soundButton.setEnabled(false);
+                            }
+
+                            public void onFinish() {
+                                //code fire after finish
+                                mp.stop();
+                                soundButton.setEnabled(true);
+                                isPlaying = false;
+                            }
+                        };
+                        cntr_aCounter.start();
+                        isPlaying = true;
+                    }
+                }
+            });
         }else{
             questionImg.setImageResource(question.getImgId());
             questionImg.setVisibility(View.VISIBLE);

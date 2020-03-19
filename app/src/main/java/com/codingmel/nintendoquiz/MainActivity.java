@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 new Question("Dans quel lieu de Mario Bros retouve-t-on cette musique ?", "FACILE", R.drawable.red_mushroom, R.raw.mario_bros_wii_underground_theme, Arrays.asList("Les sous terrains", "Sous L'eau", "Dans les airs"), "Les sous terrains"),
                 new Question("De quel jeu vient cette musique ?", "FACILE", R.drawable.red_mushroom, R.raw.wii_sports_theme, Arrays.asList("Wii Sport", "Mario Galaxy", "Pokemon"), "Wii Sport"),
                 new Question("Quel est le nom de ce personnage ?", "FACILE", R.drawable.dr_mario, 0, Arrays.asList("Professeur Mario", "Mario le Toubib", "Dr.Mario"), "Dr.Mario"),
-                new Question("Quelle console avait cette intoduction ?", "FACILE", R.drawable.red_mushroom, 1, Arrays.asList("Game Cube", "Wii", "Nintendo 64"), "Game Cube")
+                new Question("Quelle console avait cette intoduction ?", "FACILE", R.drawable.red_mushroom, R.raw.gamecube_intro, Arrays.asList("Game Cube", "Wii", "Nintendo 64"), "Game Cube")
         };
 
         return new ArrayList<Question>(Arrays.asList(questions));
