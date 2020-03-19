@@ -49,6 +49,7 @@ public class GameActivity extends AppCompatActivity {
                 if(questionIndex < questionsArray.length-1){
                     questionIndex++;
                     radioGroup.removeAllViews();
+                    radioGroup.setVisibility(View.VISIBLE);
                     setQuestion(questionIndex);
                 }else{
                     Intent intent = new Intent(GameActivity.this, QuestionListActivity.class);
@@ -65,6 +66,13 @@ public class GameActivity extends AppCompatActivity {
 
         Button soundButton = findViewById(R.id.soundButton);
         soundButton.setVisibility(View.INVISIBLE);
+
+        final TextView resultTitle = findViewById(R.id.answerResultTitleTextView);
+        resultTitle.setVisibility(View.INVISIBLE);
+
+        final TextView answerResult = findViewById(R.id.answerResultTextView);
+        answerResult.setVisibility(View.INVISIBLE);
+
 
         if(question.getSoundId() != 0){
             soundButton.setVisibility(View.VISIBLE);
@@ -83,13 +91,17 @@ public class GameActivity extends AppCompatActivity {
             radioButton.setOnClickListener(new RadioButton.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    radioGroup.setVisibility(View.INVISIBLE);
                     if(radioButton.getText().equals(question.getRightAnswers())){
-                        Toast.makeText(GameActivity.this,"C'est la bonne réponse !",Toast.LENGTH_SHORT).show();
+                        resultTitle.setText("VRAI !");
                         isItRightAnswer = true;
                     }else{
-                        Toast.makeText(GameActivity.this,"Mauvaise réponse :(",Toast.LENGTH_SHORT).show();
+                        resultTitle.setText("FAUX ! :( ");
                         isItRightAnswer = false;
                     }
+                    answerResult.setText("La réponse était : " + question.getRightAnswers());
+                    resultTitle.setVisibility(View.VISIBLE);
+                    answerResult.setVisibility(View.VISIBLE);
                     nextButton.setVisibility(View.VISIBLE);
                     if(questionIndex < questionsArray.length-1){
                         nextButton.setText("Question Suivante");
