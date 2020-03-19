@@ -13,6 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Collections;
 import java.util.List;
 
 public class GameActivity extends AppCompatActivity {
@@ -28,11 +29,22 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         srcIntent = getIntent();
         questions = srcIntent.getParcelableArrayListExtra("questions");
+        Collections.shuffle(questions);
         questionsArray = new Question[questions.size()];
         question = questions.toArray(questionsArray)[questionIndex];
 
         ImageView questionImg = findViewById(R.id.questionImage);
-        questionImg.setImageResource(question.getImgId());
+        questionImg.setVisibility(View.INVISIBLE);
+
+        Button soundButton = findViewById(R.id.soundButton);
+        soundButton.setVisibility(View.INVISIBLE);
+
+        if(question.getSoundId() != 0){
+            soundButton.setVisibility(View.VISIBLE);
+        }else{
+            questionImg.setImageResource(question.getImgId());
+            questionImg.setVisibility(View.VISIBLE);
+        }
 
         TextView questionText = findViewById(R.id.questionTextView);
         questionText.setText(question.getQuestion());
@@ -73,7 +85,17 @@ public class GameActivity extends AppCompatActivity {
                     question = questions.toArray(questionsArray)[questionIndex];
 
                     ImageView questionImg = findViewById(R.id.questionImage);
-                    questionImg.setImageResource(question.getImgId());
+                    questionImg.setVisibility(View.INVISIBLE);
+
+                    Button soundButton = findViewById(R.id.soundButton);
+                    soundButton.setVisibility(View.INVISIBLE);
+
+                    if(question.getSoundId() != 0){
+                        soundButton.setVisibility(View.VISIBLE);
+                    }else{
+                        questionImg.setImageResource(question.getImgId());
+                        questionImg.setVisibility(View.VISIBLE);
+                    }
 
                     TextView questionText = findViewById(R.id.questionTextView);
                     questionText.setText(question.getQuestion());
