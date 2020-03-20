@@ -53,6 +53,7 @@ public class Question implements Parcelable {
         soundId = in.readInt();
         answers = in.createStringArrayList();
         rightAnswers = in.readString();
+        difficulty = in.readString();
     }
 
     public static final Creator<Question> CREATOR = new Creator<Question>() {
@@ -79,5 +80,6 @@ public class Question implements Parcelable {
         dest.writeInt(soundId);
         dest.writeStringList(answers);
         dest.writeString(rightAnswers);
+        dest.writeString(difficulty);
     }
 }

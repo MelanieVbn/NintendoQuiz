@@ -1,5 +1,7 @@
 package com.codingmel.nintendoquiz;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHolder> {
@@ -28,10 +31,23 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull QuestionAdapter.ViewHolder holder, int position) {
-        Question question = questions.get(position);
+        final Question question = questions.get(position);
         holder.questionImg.setImageResource(question.getImgId());
         holder.question.setText(question.getQuestion());
         holder.difficulty.setText(question.getDifficulty());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                Intent intent = new Intent(context,GameActivity.class);
+                ArrayList<Question> questionList = new ArrayList<Question>();
+                questionList.add(question);
+                intent.putExtra("questions",questionList);
+                intent.putExtra("difficulty",question.getDifficulty());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
