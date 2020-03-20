@@ -79,6 +79,7 @@ public class GameActivity extends AppCompatActivity {
                     intent.putExtra("goodAnswerPercentage",((float)goodAnswers/(float)questions.size())*100);
                     intent.putExtra("totalNumberOfQuestions",questions.size());
                     intent.putExtra("difficulty",difficulty);
+                    finish();
                     startActivity(intent);
                 }
             }
