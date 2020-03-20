@@ -28,6 +28,7 @@ public class GameActivity extends AppCompatActivity {
     private Button nextButton;
     private RadioGroup radioGroup;
     private int goodAnswers;
+    private MediaPlayer mp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +52,7 @@ public class GameActivity extends AppCompatActivity {
                     Toast.makeText(GameActivity.this, "Aucune réponse n'a été séléctionnée",Toast.LENGTH_SHORT).show();
                     return;
                 }
+                mp.stop();
                 if(questionIndex < questionsArray.length-1){
                     questionIndex++;
                     radioGroup.removeAllViews();
@@ -80,19 +82,13 @@ public class GameActivity extends AppCompatActivity {
         final TextView answerResult = findViewById(R.id.answerResultTextView);
         answerResult.setVisibility(View.INVISIBLE);
 
-
         if(question.getSoundId() != 0){
             soundButton.setVisibility(View.VISIBLE);
             soundButton.setOnClickListener(new View.OnClickListener() {
                 boolean isPlaying;
                 @Override
                 public void onClick(View v) {
-                    final MediaPlayer mp = MediaPlayer.create(GameActivity.this, question.getSoundId());
-                    if(mp.isPlaying()){
-                        mp.pause();
-                    } else {
-                        mp.start();
-                    }
+                    mp = MediaPlayer.create(GameActivity.this, question.getSoundId());
                     //mp.seekTo(50000);
                     if(!isPlaying){
                         Log.i("Music", "onClick: Playing ");
