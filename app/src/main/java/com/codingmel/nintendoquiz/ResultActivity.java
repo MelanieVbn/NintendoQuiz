@@ -23,40 +23,42 @@ public class ResultActivity extends AppCompatActivity {
 
         TextView comment = findViewById(R.id.commentTextView);
         String difficulty = srcIntent.getStringExtra("difficulty");
+        TextView diffcultyLayout = findViewById(R.id.difficultyLayoutTextView);
+        diffcultyLayout.setText("Mode : "+ difficulty);
         comment.setText(setComment((int)percent,difficulty));
     }
 
     private String setComment(int percent, String difficulty){
         String comment;
-        switch (percent){
-            case 0:
+        if (percent == 0){
                 comment = "Aucune bonne réponse... ";
                 if(difficulty.equals("FACILE")){
                     comment += "pense a revoir tes classiques !";
                 }else if(difficulty.equals("MOYEN")){
-                    comment = "je suis sur que tu peux le faire !  !";
+                    comment += "je suis sur que tu peux le faire !  !";
                 }else{
-                    comment = "tu t'es peut être sur-estimé!";
+                    comment += "tu t'es peut être sur-estimé!";
                 }
-                break;
-            case 1-30:
+
+        }else if(percent > 0 && percent < 40 ){
                 comment= "Il y à encore quelques éléments a revoir...";
-                break;
-            case 30-60:
-                comment="Dans la moyenne, Bravo !";
-                break;
-            case 60-100:
+
+        }else if(percent >= 40 && percent < 60 ) {
+                comment = "Dans la moyenne, Bravo !";
+
+        }else if(percent >= 60 && percent < 100 ){
                 comment="Tu t'y connais bien, je suis sur que tu peux arriver a faire un sans faute!";
-                break;
-            case 100:
-                comment = "Un sans faute ! ";
-                if(difficulty.equals("FACILE") || difficulty.equals("MOYEN")){
-                    comment += "tu devrais songer a passer au niveau supérieur !";
-                }else{
-                    comment = "tu est incolable sur Nintendo, bravo à toi !";
-                }
-                break;
-            default:
+
+        }else if(percent == 100) {
+            comment = "Un sans faute ! ";
+
+            if (difficulty.equals("FACILE") || difficulty.equals("MOYEN")) {
+                comment += "tu devrais songer a passer au niveau supérieur !";
+            } else {
+                comment += "tu est incolable sur Nintendo, bravo à toi !";
+            }
+
+        }else{
                 comment = "BRAVO !";
         }
         return comment;

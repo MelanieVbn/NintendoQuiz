@@ -10,8 +10,9 @@
         android:id="@+id/questionImage"
         android:layout_width="180dp"
         android:layout_height="139dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="48dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/red_mushroom" />
@@ -83,4 +84,15 @@
         app:layout_constraintEnd_toEndOf="@+id/answerResultTitleTextView"
         app:layout_constraintStart_toStartOf="@+id/answerResultTitleTextView"
         app:layout_constraintTop_toBottomOf="@+id/answerResultTitleTextView" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -29,6 +30,8 @@ public class GameActivity extends AppCompatActivity {
     private RadioGroup radioGroup;
     private int goodAnswers;
     private MediaPlayer mp;
+    private Button soundButton;
+    CountDownTimer cntr_aCounter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +55,20 @@ public class GameActivity extends AppCompatActivity {
                     Toast.makeText(GameActivity.this, "Aucune réponse n'a été séléctionnée",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                mp.stop();
+                if(mp != null){
+                    mp.stop();
+                    if(cntr_aCounter != null){
+                        cntr_aCounter.cancel();
+                    }
+                    if(!soundButton.isEnabled()){
+                        soundButton.setEnabled(true);
+                    }
+                }
+
+                ProgressBar progressBar = findViewById(R.id.progressBar);
+                float progression = ((float)(questionIndex+1)/(float)questions.size())*100;
+                progressBar.setProgress((int)progression);
+
                 if(questionIndex < questionsArray.length-1){
                     questionIndex++;
                     radioGroup.removeAllViews();
@@ -73,7 +89,7 @@ public class GameActivity extends AppCompatActivity {
         ImageView questionImg = findViewById(R.id.questionImage);
         questionImg.setVisibility(View.INVISIBLE);
 
-        final Button soundButton = findViewById(R.id.soundButton);
+        soundButton = findViewById(R.id.soundButton);
         soundButton.setVisibility(View.INVISIBLE);
 
         final TextView resultTitle = findViewById(R.id.answerResultTitleTextView);
@@ -93,7 +109,7 @@ public class GameActivity extends AppCompatActivity {
                     if(!isPlaying){
                         Log.i("Music", "onClick: Playing ");
                         mp.start();
-                        CountDownTimer cntr_aCounter = new CountDownTimer(10000, 1000) {
+                        cntr_aCounter = new CountDownTimer(10000, 1000) {
                             public void onTick(long millisUntilFinished) {
                                 mp.start();
                                 soundButton.setEnabled(false);
@@ -114,6 +130,14 @@ public class GameActivity extends AppCompatActivity {
         }else{
             questionImg.setImageResource(question.getImgId());
             questionImg.setVisibility(View.VISIBLE);
+            questionImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(GameActivity.this, FullScreenImgActivity.class);
+                    intent.putExtra("imgId",question.getImgId());
+                    startActivity(intent);
+                }
+            });
         }
 
         TextView questionText = findViewById(R.id.questionTextView);
