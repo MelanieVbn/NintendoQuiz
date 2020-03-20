@@ -14,7 +14,6 @@ import java.util.List;
 
 public class QuestionListActivity extends AppCompatActivity {
 
-    private List<Question> questions;
     private QuestionAdapter adapter;
 
     @Override
@@ -22,12 +21,7 @@ public class QuestionListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_questions);
         Intent srcIntent = getIntent();
-        ArrayList<Question> questionList = srcIntent.getParcelableArrayListExtra("questions");
-
-        questions = new ArrayList<>();
-        for (Question question:questionList){
-            questions.add(question);
-        }
+        ArrayList<Question> questions = srcIntent.getParcelableArrayListExtra("questions");
         adapter = new QuestionAdapter(questions);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);

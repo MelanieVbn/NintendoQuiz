@@ -18,19 +18,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
+    private MediaPlayer mp;
     ArrayList<Question> questions;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
-        final MediaPlayer mp = MediaPlayer.create(MainActivity.this, R.raw.mario_medley);
+        mp = MediaPlayer.create(MainActivity.this, R.raw.mario_medley);
         mp.setLooping(true);
         mp.start();
-
-        /*ObjectAnimator animator = ObjectAnimator.ofFloat(R.id.titleGameTextView,"translationY",-500f);
-        animator.setDuration(5000);
-        animator.start();*/
 
         setContentView(R.layout.activity_main);
         ScrollingImageView scrollingBackground = findViewById(R.id.bgImageView);
@@ -71,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                         }
                         mp.stop();
+                        dialog.cancel();
                         startActivity(intent);
                     }
                 });
@@ -85,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, QuestionListActivity.class);
                 intent.putExtra("questions",getQuestions());
+                mp.stop();
                 startActivity(intent);
             }
         });
@@ -137,5 +135,15 @@ public class MainActivity extends AppCompatActivity {
             fetchedQuestions.add(question);
         };
         return fetchedQuestions;
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if(mp != null && !mp.isPlaying()){
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+        }
     }
 }
