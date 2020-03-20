@@ -37,13 +37,14 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
         holder.question.setText(question.getQuestion());
         holder.difficulty.setText(question.getDifficulty());
 
+        //For start a quiz with only one question
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
                 Intent intent = new Intent(context,GameActivity.class);
                 ArrayList<Question> questionList = new ArrayList<Question>();
-                questionList.add(question);
+                questionList.add(question);//Create a list with one question (Because the game activity take a list of questions)
                 intent.putExtra("questions",questionList);
                 intent.putExtra("difficulty",question.getDifficulty());
                 context.startActivity(intent);

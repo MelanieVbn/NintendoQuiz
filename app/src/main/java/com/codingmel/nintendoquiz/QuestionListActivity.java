@@ -22,7 +22,7 @@ public class QuestionListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_all_questions);
         Intent srcIntent = getIntent();
         ArrayList<Question> questions = srcIntent.getParcelableArrayListExtra("questions");
-        adapter = new QuestionAdapter(questions);
+        adapter = new QuestionAdapter(questions);//Get a list of questions for the adaptater
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setAdapter(adapter);

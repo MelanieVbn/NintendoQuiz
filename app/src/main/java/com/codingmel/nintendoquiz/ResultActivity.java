@@ -7,16 +7,19 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 public class ResultActivity extends AppCompatActivity {
-
+    //RESULT ACTIVITY
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-        Intent srcIntent = getIntent();
+        Intent srcIntent = getIntent();//Get the parent intent
+
+        //Set page with parent extra informations
         float percent = srcIntent.getFloatExtra("goodAnswerPercentage",0);
         TextView percentageText = findViewById(R.id.percentageTextView);
         percentageText.setText((int)percent+" %");
+
         int questionsTotal = srcIntent.getIntExtra("totalNumberOfQuestions",0);
         TextView resultPhraseTextView = findViewById(R.id.resultPhraseTextView);
         resultPhraseTextView.setText("Tu as répondu juste à "+(int)percent/10+" questions sur "+questionsTotal);
@@ -25,9 +28,12 @@ public class ResultActivity extends AppCompatActivity {
         String difficulty = srcIntent.getStringExtra("difficulty");
         TextView diffcultyLayout = findViewById(R.id.difficultyLayoutTextView);
         diffcultyLayout.setText("Mode : "+ difficulty);
+
         comment.setText(setComment((int)percent,difficulty));
     }
 
+    //---Set Comment take the current difficulty, display different comments,
+    // based from the percentage of good answers and the difficulty---
     private String setComment(int percent, String difficulty){
         String comment;
         if (percent == 0){

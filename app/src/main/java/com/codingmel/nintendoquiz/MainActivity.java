@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         scrollingBackground.stop();
         scrollingBackground.start();
 
-
+        //About button for go to about page
         findViewById(R.id.aboutButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,9 +42,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Play button for start game
         findViewById(R.id.playButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Create an alert with radio buttons for select a difficulty
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("Choisir un niveau");
                 final String[] difficultyLabels = {"Facile","Moyen","Difficile"};
@@ -77,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //All questions button for show all questions
         findViewById(R.id.allQuestionsButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //LIST OF QUESTIONS
     private ArrayList<Question> getQuestions() {
         Question questions[] = new Question[]{
                 new Question("Quel est ce personnage ?", "FACILE", R.drawable.waluigi, 0, Arrays.asList("Luigi", "Wario", "Waluigi"), "Waluigi"),
@@ -128,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
         return new ArrayList<Question>(Arrays.asList(questions));
     }
 
+    //GET QUESTIONS BY DIFFICULTY
     private ArrayList<Question> getQuestionsByDifficulty(String difficulty){
         ArrayList<Question> fetchedQuestions = new ArrayList<>();
         for (Question question:getQuestions()) {
@@ -140,10 +145,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
+        //Restart the current Activity
         if(mp != null && !mp.isPlaying()){
             Intent intent = getIntent();
             finish();
             startActivity(intent);
         }
+        //I don't think it's a good choice, but, for restart the music, that was the only thing that worked
     }
 }
