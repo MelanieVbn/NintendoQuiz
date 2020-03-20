@@ -43,18 +43,12 @@ public class GameActivity extends AppCompatActivity {
 
         final String difficulty = srcIntent.getStringExtra("difficulty");
 
-        setQuestion(questionIndex);
         nextButton = findViewById(R.id.nextButton);
-        nextButton.setVisibility(View.INVISIBLE);
+        setQuestion(questionIndex);
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Early Return
-                if(radioGroup.getCheckedRadioButtonId() == -1){
-                    Toast.makeText(GameActivity.this, "Aucune réponse n'a été séléctionnée",Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 if(mp != null){
                     mp.stop();
                     if(cntr_aCounter != null){
@@ -87,6 +81,9 @@ public class GameActivity extends AppCompatActivity {
     }
     public void setQuestion(int index){
         question = questions.toArray(questionsArray)[index];
+
+        nextButton.setVisibility(View.INVISIBLE);
+
         ImageView questionImg = findViewById(R.id.questionImage);
         questionImg.setVisibility(View.INVISIBLE);
 
